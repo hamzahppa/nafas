@@ -1,5 +1,5 @@
 import { getText } from '@zos/i18n'
-import { scrollTo } from '@zos/page'
+import { scrollTo, setScrollMode, SCROLL_MODE_FREE } from '@zos/page'
 import { align, text_style } from '@zos/ui'
 import { minuteHr, stressDelta } from '../utils/engine'
 import { formatClock, formatDelta, formatNumber, readParam } from '../utils/format'
@@ -76,12 +76,19 @@ Page({
   },
 
   build() {
-    fill(0x000000)
+    setScrollMode({ mode: SCROLL_MODE_FREE })
     const record = findSession(this.id)
     if (!record) {
+      fill(0x000000)
       label({ y: 200, text: getText('missing') })
       return
     }
+
+    const minutes = minuteHr(record.hrSamples || [])
+    const lines = stepLines(record.timeline || [])
+    // Tall enough for first screen + all-stats block (max HR, HR/phase timelines).
+    fill(0x000000, SCREEN * 6)
+
     label({
       x: COL_X,
       y: 72,
@@ -123,7 +130,8 @@ Page({
       w: 280,
       h: 52,
       text: getText('all_stats'),
-      click_func: () => scrollTo({ y: SCREEN }),
+      // Zepp OS: down is negative y (12 o'clock is positive).
+      click_func: () => scrollTo({ y: -SCREEN }),
     })
 
     let y = SCREEN + 96
@@ -146,7 +154,6 @@ Page({
       text: getText('hr_timeline'),
     })
     y += 40
-    const minutes = minuteHr(record.hrSamples || [])
     if (!minutes.length) {
       label({ x: COL_X, y, w: COL_W, h: 32, text_size: 24, color: 0x888888, text: '—' })
       y += 40
@@ -174,7 +181,6 @@ Page({
       text: getText('phase_timeline'),
     })
     y += 40
-    const lines = stepLines(record.timeline || [])
     if (!lines.length) {
       label({ x: COL_X, y, w: COL_W, h: 32, text_size: 24, color: 0x888888, text: '—' })
       y += 40

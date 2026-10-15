@@ -2,12 +2,12 @@ import { createWidget, widget, align, prop, event } from '@zos/ui'
 
 export const SCREEN = 466
 
-export function fill(color) {
+export function fill(color, height) {
   return createWidget(widget.FILL_RECT, {
     x: 0,
     y: 0,
     w: SCREEN,
-    h: SCREEN,
+    h: height == null ? SCREEN : height,
     color,
   })
 }
