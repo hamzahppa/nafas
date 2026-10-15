@@ -1,0 +1,14 @@
+{
+  "name": "breathwork-exercise",
+  "version": "1.0.0",
+  "description": "Custom breathwork exercise for Zepp OS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@zeppos/device-types": "^2.0.0"
+  }
+}

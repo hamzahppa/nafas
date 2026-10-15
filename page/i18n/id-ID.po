@@ -1,0 +1,140 @@
+msgid "name_coherence"
+msgstr "Resonansi"
+
+msgid "name_relax"
+msgstr "Fokus (Long)"
+
+msgid "name_relax_short"
+msgstr "Fokus (Short)"
+
+msgid "name_tranquility"
+msgstr "Tidur"
+
+msgid "purpose_coherence"
+msgstr "Napas seimbang, tenang tapi tetap fokus."
+
+msgid "purpose_relax"
+msgstr "Box Breathing untuk tubuh rileks dan pikiran tajam."
+
+msgid "purpose_relax_short"
+msgstr "Sesi cepat 5 menit untuk isi ulang konsentrasi."
+
+msgid "purpose_tranquility"
+msgstr "Rilekskan tubuh secara perlahan untuk persiapan tidur."
+
+msgid "prep_resonansi"
+msgstr "Tarik dan embuskan napas halus secara terus-menerus lewat hidung tanpa jeda untuk menyelaraskan ketenangan dan fokus pikiran."
+
+msgid "prep_fokus"
+msgstr "Tarik napas lewat hidung, tahan, hembuskan lewat mulut, dan tahan kembali dalam durasi yang sama persis untuk mengunci konsentrasi."
+
+msgid "prep_tidur"
+msgstr "Tarik napas lewat hidung secara tenang, tahan lama, lalu embuskan lewat mulut dengan desisan panjang untuk memicu rasa kantuk instan."
+
+msgid "start"
+msgstr "Mulai"
+
+msgid "pause"
+msgstr "Jeda"
+
+msgid "resume"
+msgstr "Lanjut"
+
+msgid "skip"
+msgstr "Lewati"
+
+msgid "stop"
+msgstr "Berhenti"
+
+msgid "save"
+msgstr "Simpan"
+
+msgid "discard"
+msgstr "Buang"
+
+msgid "history"
+msgstr "Riwayat"
+
+msgid "min"
+msgstr "mnt"
+
+msgid "pattern"
+msgstr "Pola"
+
+msgid "eases_in"
+msgstr "Menit pertama menyesuaikan ritme target"
+
+msgid "phase_inhale"
+msgstr "Tarik napas"
+
+msgid "phase_hold"
+msgstr "Tahan"
+
+msgid "phase_exhale"
+msgstr "Hembuskan"
+
+msgid "hr"
+msgstr "Detak"
+
+msgid "sound_off"
+msgstr "Suara mati"
+
+msgid "sound_low"
+msgstr "Suara pelan"
+
+msgid "sound_high"
+msgstr "Suara keras"
+
+msgid "duration"
+msgstr "Durasi"
+
+msgid "paced_rate"
+msgstr "Laju napas terpandu"
+
+msgid "avg_hr"
+msgstr "Rata-rata detak"
+
+msgid "max_hr"
+msgstr "Detak tertinggi"
+
+msgid "stress"
+msgstr "Stres"
+
+msgid "stress_change"
+msgstr "Perubahan stres"
+
+msgid "all_stats"
+msgstr "Semua statistik"
+
+msgid "view_stats"
+msgstr "Lihat statistik"
+
+msgid "close_resonansi"
+msgstr "Tubuh Anda kini selaras sempurna; melangkahlah dengan ketenangan dan fokus yang tajam."
+
+msgid "close_fokus_long"
+msgstr "Pikiran Anda telah kembali jernih dan terkendali; Anda siap menghadapi apa pun hari ini."
+
+msgid "close_fokus_short"
+msgstr "Konsentrasi Anda telah terisi ulang; saatnya kembali beraksi dengan fokus penuh."
+
+msgid "close_tidur"
+msgstr "Hari ini telah selesai; biarkan tubuh Anda rileks sepenuhnya dan selamat tidur nyenyak."
+
+msgid "hr_timeline"
+msgstr "Detak tiap menit"
+
+msgid "phase_timeline"
+msgstr "Linimasa fase"
+
+msgid "session_paused"
+msgstr "Sesi dijeda"
+
+msgid "no_history"
+msgstr "Belum ada sesi"
+
+msgid "missing"
+msgstr "Sesi tidak ditemukan"
+
+msgid "done"
+msgstr "Selesai"

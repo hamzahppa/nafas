@@ -1,0 +1,71 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 27670,
+    "appName": "Nafas",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "zepp",
+    "description": "Latihan napas terpandu"
+  },
+  "permissions": [
+    "data:os.device.info",
+    "device:os.local_storage",
+    "data:user.hd.heart_rate",
+    "data:user.hd.stress"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "4.0.0",
+      "target": "4.0.0",
+      "minVersion": "4.0.0"
+    }
+  },
+  "targets": {
+    "466x466-amazfit-active-3-premium": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/index",
+            "page/detail",
+            "page/session",
+            "page/summary",
+            "page/history"
+          ]
+        }
+      },
+      "platforms": [
+        {
+          "name": "Cologne",
+          "deviceSource": 10944768
+        },
+        {
+          "name": "CologneWN",
+          "deviceSource": 10944769
+        },
+        {
+          "name": "CologneW",
+          "deviceSource": 10944771
+        },
+        {
+          "name": "CologneSW",
+          "deviceSource": 10948867
+        }
+      ],
+      "designWidth": 466
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Nafas"
+    },
+    "id-ID": {
+      "appName": "Nafas"
+    }
+  },
+  "defaultLanguage": "id-ID"
+}
