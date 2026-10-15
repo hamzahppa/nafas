@@ -1,35 +1,35 @@
 msgid "name_coherence"
-msgstr "Resonansi"
+msgstr "Resonance"
 
 msgid "name_relax"
-msgstr "Fokus (Long)"
+msgstr "Focus (Long)"
 
 msgid "name_relax_short"
-msgstr "Fokus (Short)"
+msgstr "Focus (Short)"
 
 msgid "name_tranquility"
-msgstr "Tidur"
+msgstr "Sleep"
 
 msgid "purpose_coherence"
-msgstr "Napas seimbang, tenang tapi tetap fokus."
+msgstr "Even breathing, calm but still focused."
 
 msgid "purpose_relax"
-msgstr "Box Breathing untuk tubuh rileks dan pikiran tajam."
+msgstr "Box breathing to relax the body and sharpen the mind."
 
 msgid "purpose_relax_short"
-msgstr "Sesi cepat 5 menit untuk isi ulang konsentrasi."
+msgstr "A quick 5-minute session to restore concentration."
 
 msgid "purpose_tranquility"
-msgstr "Rilekskan tubuh secara perlahan untuk persiapan tidur."
+msgstr "Slowly relax the body to prepare for sleep."
 
 msgid "prep_resonansi"
-msgstr "Tarik dan embuskan napas halus secara terus-menerus lewat hidung tanpa jeda untuk menyelaraskan ketenangan dan fokus pikiran."
+msgstr "Breathe in and out gently through the nose, with no pause, to settle calm and focus."
 
 msgid "prep_fokus"
-msgstr "Tarik napas lewat hidung, tahan, hembuskan lewat mulut, dan tahan kembali dalam durasi yang sama persis untuk mengunci konsentrasi."
+msgstr "Inhale through the nose, hold, exhale through the mouth, then hold again for the same time to lock in focus."
 
 msgid "prep_tidur"
-msgstr "Tarik napas lewat hidung secara tenang, tahan lama, lalu embuskan lewat mulut dengan desisan panjang untuk memicu rasa kantuk instan."
+msgstr "Inhale calmly through the nose, hold, then exhale through the mouth in a long hiss to bring on sleep."
 
 msgid "start"
 msgstr "Start"
@@ -98,28 +98,28 @@ msgid "max_hr"
 msgstr "Max HR"
 
 msgid "stress"
-msgstr "Stres"
+msgstr "Stress"
 
 msgid "stress_change"
-msgstr "Perubahan stres"
+msgstr "Stress change"
 
 msgid "all_stats"
-msgstr "Semua statistik"
+msgstr "All stats"
 
 msgid "view_stats"
-msgstr "Lihat statistik"
+msgstr "View stats"
 
 msgid "close_resonansi"
-msgstr "Tubuh Anda kini selaras sempurna; melangkahlah dengan ketenangan dan fokus yang tajam."
+msgstr "Your body is in balance; step forward with calm and sharp focus."
 
 msgid "close_fokus_long"
-msgstr "Pikiran Anda telah kembali jernih dan terkendali; Anda siap menghadapi apa pun hari ini."
+msgstr "Your mind is clear and steady again; you are ready for the day."
 
 msgid "close_fokus_short"
-msgstr "Konsentrasi Anda telah terisi ulang; saatnya kembali beraksi dengan fokus penuh."
+msgstr "Your concentration is restored; it is time to act with full focus."
 
 msgid "close_tidur"
-msgstr "Hari ini telah selesai; biarkan tubuh Anda rileks sepenuhnya dan selamat tidur nyenyak."
+msgstr "The day is done; let your body relax completely and sleep well."
 
 msgid "hr_timeline"
 msgstr "Heart rate by minute"

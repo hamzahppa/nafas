@@ -71,6 +71,10 @@ export function setY(node, y) {
   node.setProperty(prop.Y, y)
 }
 
+export function setH(node, h) {
+  node.setProperty(prop.H, h)
+}
+
 export function setButtonText(node, text) {
   try {
     node.text = text
@@ -80,11 +84,14 @@ export function setButtonText(node, text) {
   node.setProperty(prop.TEXT, text)
 }
 
-const ARC_X = 233
-const ARC_Y = 198
-const BAR_WIDTH = 16
-const BAR_RADII = [36, 69, 102, 135, 168]
+const ARC_X = SCREEN / 2
+const ARC_Y = SCREEN / 2
+const BAR_WIDTH = 28
+const BAR_RADII = [86, 117, 148, 179, 210]
+const INNER_R = BAR_RADII[0] - BAR_WIDTH + 3
 let shownBars = -1
+let innerDisk = null
+let innerMask = null
 
 function layerColor(amount) {
   const red = Math.round(0x08 + (0x3d - 0x08) * amount)
@@ -111,6 +118,21 @@ export function createBreathArcs() {
       }),
     )
   }
+  innerDisk = createWidget(widget.CIRCLE, {
+    center_x: ARC_X,
+    center_y: ARC_Y,
+    radius: INNER_R,
+    color: layerColor(0),
+  })
+  innerMask = createWidget(widget.FILL_RECT, {
+    x: ARC_X - INNER_R - 1,
+    y: ARC_Y,
+    w: (INNER_R + 1) * 2,
+    h: INNER_R + 2,
+    color: 0x000000,
+  })
+  setVisible(innerDisk, false)
+  setVisible(innerMask, false)
   return arcs
 }
 
@@ -134,10 +156,67 @@ export function setBars(arcs, count) {
       node.setProperty(prop.Y, -80)
     }
   }
+  const showInner = count > 0
+  setVisible(innerDisk, showInner)
+  setVisible(innerMask, showInner)
 }
 
 export function setVisible(node, visible) {
   node.setProperty(prop.VISIBLE, visible)
+}
+
+const RING_SIZE = 428
+const RING_START = -90
+let ringSweep = -1
+
+export function createPrepRing() {
+  ringSweep = -1
+  const x = Math.round((SCREEN - RING_SIZE) / 2)
+  const shape = {
+    x,
+    y: x,
+    w: RING_SIZE,
+    h: RING_SIZE,
+    start_angle: RING_START,
+    end_angle: RING_START + 359,
+    line_width: 18,
+    color: 0x1a2740,
+  }
+  const track = createWidget(widget.ARC, shape)
+  const progress = createWidget(widget.ARC, {
+    x,
+    y: x,
+    w: RING_SIZE,
+    h: RING_SIZE,
+    start_angle: RING_START,
+    end_angle: RING_START + 359,
+    line_width: 18,
+    color: 0x3d8bfd,
+  })
+  return { track, progress }
+}
+
+export function setRing(ring, ratio) {
+  const amount = Math.max(0, Math.min(1, ratio))
+  const sweep = amount <= 0 ? 0 : Math.max(1, Math.round(amount * 359))
+  if (sweep === ringSweep) return
+  ringSweep = sweep
+  ring.progress.setProperty(prop.END_ANGLE, RING_START + sweep)
+  ring.progress.setProperty(prop.VISIBLE, sweep > 0)
+}
+
+export function showRing(ring) {
+  if (!ring) return
+  ringSweep = -1
+  setVisible(ring.track, true)
+  setVisible(ring.progress, true)
+}
+
+export function hideRing(ring) {
+  if (!ring) return
+  ringSweep = -1
+  setVisible(ring.track, false)
+  setVisible(ring.progress, false)
 }
 
 export function onClick(node, handler) {

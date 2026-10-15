@@ -18,17 +18,44 @@ import { presetById, stepsFor } from '../utils/presets'
 import { buildRecord } from '../utils/record'
 import { readStress, startHeart, startStress, stopHeart, stopStress } from '../utils/sensors'
 import { attach, checkpointFromLive, clearActive, loadActive, pushHistory, saveActive } from '../utils/store'
-import { button, createBreathArcs, fill, label, setBars, setText, setVisible, setY } from '../utils/ui'
+import { SCREEN, button, createBreathArcs, createPrepRing, fill, hideRing, label, setBars, setH, setRing, setText, setVisible, setY, showRing } from '../utils/ui'
 
-const PHASE_Y = 210
-const PHASE_LEFT_Y = 256
-const CLOCK_Y = 304
-const HR_Y = 340
+const PHASE_Y = 252
+const PHASE_LEFT_Y = 298
+const CLOCK_Y = 346
+const HR_Y = 382
 
 const TICK_MS = 50
 const CHECKPOINT_MS = 30000
 const PREP_MS = 30000
 const CLOSE_MS = 15000
+const BODY_W = 320
+const BODY_X = Math.round((SCREEN - BODY_W) / 2)
+const BODY_SIZE = 24
+const LINE_H = 32
+const COUNT_H = 76
+
+function wrappedLines(text) {
+  const max = Math.floor(BODY_W / (BODY_SIZE * 0.46))
+  const words = String(text).split(' ')
+  let lines = 1
+  let used = 0
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i].length
+    const need = used === 0 ? word : used + 1 + word
+    if (used > 0 && need > max) {
+      lines += 1
+      used = word
+    } else {
+      used = need
+    }
+  }
+  return lines
+}
+
+function bodyHeight(text) {
+  return wrappedLines(text) * LINE_H
+}
 
 function freshStress(sample) {
   return sample && sample.value > 0
@@ -121,6 +148,7 @@ Page({
     fill(0x000000)
     keepAwake()
     this.arcs = createBreathArcs()
+    this.ring = createPrepRing()
     this.hrText = label({
       y: HR_Y,
       h: 28,
@@ -129,24 +157,25 @@ Page({
       text: `${getText('hr')} ${session.liveHr || '—'}`,
     })
     if (session.status === 'prepare') {
-      setText(this.hrText, `${getText('stress')} —`)
-      startStress((sample) => {
-        takeStart(session, sample)
-        if (session.stressStart) setText(this.hrText, `${getText('stress')} ${session.stressStart.value}`)
-      })
+      setVisible(this.hrText, false)
+      startStress((sample) => takeStart(session, sample))
     } else {
+      hideRing(this.ring)
       this.watchHeart()
     }
     const preparing = session.status === 'prepare'
-    this.prepCount = label({ y: 48, h: 76, text_size: 64, text: '' })
+    const prepCopy = getText(prepKey(session.presetId))
+    const prepBodyH = bodyHeight(prepCopy)
+    const prepTop = Math.round((SCREEN - (COUNT_H + 20 + prepBodyH)) / 2)
+    this.prepCount = label({ y: prepTop, h: COUNT_H, text_size: 64, text: '' })
     this.prepText = label({
-      x: 73,
-      y: 136,
-      w: 320,
-      h: 190,
-      text_size: 24,
+      x: BODY_X,
+      y: prepTop + COUNT_H + 20,
+      w: BODY_W,
+      h: prepBodyH,
+      text_size: BODY_SIZE,
       text_style: text_style.WRAP,
-      text: getText(prepKey(session.presetId)),
+      text: prepCopy,
     })
     this.phaseText = label({ y: PHASE_Y, h: 42, text_size: 36, text: '' })
     this.phaseRemain = label({ y: PHASE_LEFT_Y, h: 42, text_size: 36, text: '' })
@@ -205,7 +234,9 @@ Page({
       return
     }
     if (session.status === 'close') {
-      if (Date.now() >= session.closeUntil) this.showStats()
+      const left = session.closeUntil - Date.now()
+      if (left <= 0) this.showStats()
+      else this.paintClose(left)
       return
     }
     if (session.status !== 'running') return
@@ -246,8 +277,12 @@ Page({
   },
 
   paintPrep(left) {
-    setBars(this.arcs, 0)
+    setRing(this.ring, Math.max(0, left) / PREP_MS)
     setText(this.prepCount, String(Math.max(1, Math.ceil(left / 1000))))
+  },
+
+  paintClose(left) {
+    setRing(this.ring, Math.max(0, left) / CLOSE_MS)
   },
 
   begin() {
@@ -258,6 +293,8 @@ Page({
     this.session.lastCheckpoint = now
     this.session.phaseIndex = -1
     stopStress()
+    hideRing(this.ring)
+    setVisible(this.hrText, true)
     setText(this.hrText, `${getText('hr')} ${this.session.liveHr || '—'}`)
     this.watchHeart()
     setVisible(this.prepCount, false)
@@ -298,21 +335,22 @@ Page({
     pauseClock(this.session.clock, now)
     tap()
     playCue('end', this.session.audioVolume)
-    setBars(this.arcs, 0)
     setVisible(this.prepCount, false)
     setVisible(this.phaseText, false)
     setVisible(this.phaseRemain, false)
     setVisible(this.sessionRemain, false)
-    setText(this.hrText, `${getText('stress')} —`)
-    setVisible(this.hrText, true)
-    setY(this.prepText, 88)
-    setText(this.prepText, getText(closeKey(this.session.presetId)))
+    setVisible(this.hrText, false)
+    setBars(this.arcs, 0)
+    const closeCopy = getText(closeKey(this.session.presetId))
+    const closeH = bodyHeight(closeCopy)
+    setY(this.prepText, Math.round((SCREEN - closeH) / 2))
+    setH(this.prepText, closeH)
+    setText(this.prepText, closeCopy)
     setVisible(this.prepText, true)
+    showRing(this.ring)
     stopHeart()
-    startStress((sample) => {
-      takeEnd(this.session, sample)
-      if (this.session.stressEnd) setText(this.hrText, `${getText('stress')} ${this.session.stressEnd.value}`)
-    })
+    startStress((sample) => takeEnd(this.session, sample))
+    this.paintClose(CLOSE_MS)
   },
 
   watchHeart() {
@@ -330,6 +368,8 @@ Page({
     if (this.session.status !== 'close') return
     this.session.status = 'done'
     stopStress()
+    hideRing(this.ring)
+    setBars(this.arcs, 0)
     setY(this.statsButton, 348)
     setVisible(this.statsButton, true)
   },

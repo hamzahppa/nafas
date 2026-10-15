@@ -52,4 +52,4 @@ zeus dev
 
 ## Lisensi
 
-[MIT](LICENSE)
+[0BSD](LICENSE)

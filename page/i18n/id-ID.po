@@ -2,10 +2,10 @@ msgid "name_coherence"
 msgstr "Resonansi"
 
 msgid "name_relax"
-msgstr "Fokus (Long)"
+msgstr "Fokus (Panjang)"
 
 msgid "name_relax_short"
-msgstr "Fokus (Short)"
+msgstr "Fokus (Singkat)"
 
 msgid "name_tranquility"
 msgstr "Tidur"
