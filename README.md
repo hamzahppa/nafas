@@ -11,7 +11,7 @@ Aplikasi latihan napas terpandu untuk Amazfit Active 3 Premium (Zepp OS). Layar 
 | Fokus (Short) | 5 menit | tarik 4 · tahan 4 · hembus 4 · tahan 4 |
 | Tidur | 10 menit | tarik 4 · tahan 7 · hembus 8 |
 
-Resonansi dan Tidur naik bertahap dari napas alami (4 · 0 · 4 · 0) ke pola target. Fokus memakai box breathing sejak awal.
+Resonansi naik bertahap dari napas alami (4 · 0 · 4 · 0) ke pola target. Fokus memakai box breathing sejak awal. Tidur progresif: 4 · 5 · 6 (2 menit) → 4 · 6 · 7 (3 menit) → 4 · 7 · 8 sampai selesai.
 
 ## Cara pakai
 
