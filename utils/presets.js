@@ -1,5 +1,6 @@
 const NATURAL = { inhale: 4, holdIn: 0, exhale: 4, holdOut: 0 }
 const BOX = { inhale: 4, holdIn: 4, exhale: 4, holdOut: 4 }
+const SLEEP_478 = { inhale: 4, holdIn: 7, exhale: 8, holdOut: 0 }
 
 export const STRESS_MAX_AGE_MS = 10 * 60 * 1000
 export const HISTORY_LIMIT = 100
@@ -37,8 +38,10 @@ export const PRESETS = [
   {
     id: 'tranquility',
     durationSec: 10 * 60,
-    target: { inhale: 4, holdIn: 7, exhale: 8, holdOut: 0 },
+    target: SLEEP_478,
     measured: false,
+    // 4-7-8 from the start — no ramp from natural 4·0·4·0.
+    steps: [{ pattern: SLEEP_478, durationSec: 10 * 60 }],
   },
 ]
 
