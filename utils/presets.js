@@ -1,5 +1,7 @@
 const NATURAL = { inhale: 4, holdIn: 0, exhale: 4, holdOut: 0 }
 const BOX = { inhale: 4, holdIn: 4, exhale: 4, holdOut: 4 }
+const SLEEP_456 = { inhale: 4, holdIn: 5, exhale: 6, holdOut: 0 }
+const SLEEP_467 = { inhale: 4, holdIn: 6, exhale: 7, holdOut: 0 }
 const SLEEP_478 = { inhale: 4, holdIn: 7, exhale: 8, holdOut: 0 }
 
 export const STRESS_MAX_AGE_MS = 10 * 60 * 1000
@@ -40,8 +42,12 @@ export const PRESETS = [
     durationSec: 10 * 60,
     target: SLEEP_478,
     measured: false,
-    // 4-7-8 from the start — no ramp from natural 4·0·4·0.
-    steps: [{ pattern: SLEEP_478, durationSec: 10 * 60 }],
+    // Progressive 4-7-8: ease in over the first 5 minutes, then hold target.
+    steps: [
+      { pattern: SLEEP_456, durationSec: 2 * 60 },
+      { pattern: SLEEP_467, durationSec: 3 * 60 },
+      { pattern: SLEEP_478, durationSec: 5 * 60 },
+    ],
   },
 ]
 
