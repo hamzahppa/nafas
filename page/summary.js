@@ -1,11 +1,11 @@
 import { getText } from '@zos/i18n'
-import { scrollTo } from '@zos/page'
+import { push } from '@zos/router'
 import { align, text_style } from '@zos/ui'
-import { minuteHr, stressDelta } from '../utils/engine'
+import { stressDelta } from '../utils/engine'
 import { formatClock, formatDelta, formatNumber, readParam } from '../utils/format'
 import { nameKey } from '../utils/presets'
 import { findSession } from '../utils/store'
-import { button, fill, label, SCREEN } from '../utils/ui'
+import { button, fill, label } from '../utils/ui'
 
 const COL_W = 320
 const COL_X = 73
@@ -36,38 +36,6 @@ function stressRow(change, y) {
     color: change > 0 ? 0xd64545 : 0x2eae6a,
     text: arrow,
   })
-}
-
-function eventLine(event) {
-  const time = formatClock(event.sessionMs)
-  if (event.type === 'skip') return `${time} ${getText('skip')}`
-  if (event.type === 'pause') return `${time} ${getText('pause')}`
-  if (event.type === 'resume') return `${time} ${getText('resume')}`
-  if (event.type === 'phase') {
-    const name =
-      event.kind === 'inhale'
-        ? getText('phase_inhale')
-        : event.kind === 'exhale'
-          ? getText('phase_exhale')
-          : getText('phase_hold')
-    return `${time} ${name}`
-  }
-  return time
-}
-
-function stepLines(timeline) {
-  const lines = []
-  let lastStep = -1
-  for (let i = 0; i < timeline.length; i++) {
-    const event = timeline[i]
-    if (event.type === 'phase') {
-      if (event.stepIndex === lastStep) continue
-      lastStep = event.stepIndex
-    }
-    lines.push(eventLine(event))
-    if (lines.length >= 20) break
-  }
-  return lines
 }
 
 Page({
@@ -123,74 +91,11 @@ Page({
       w: 280,
       h: 52,
       text: getText('all_stats'),
-      click_func: () => scrollTo({ y: SCREEN }),
+      click_func: () =>
+        push({
+          url: 'page/stats',
+          params: `id=${record.id}`,
+        }),
     })
-
-    let y = SCREEN + 96
-    label({
-      x: COL_X,
-      y,
-      w: COL_W,
-      h: 44,
-      text_size: 28,
-      text: `${getText('max_hr')} ${formatNumber(record.maxHr)}`,
-    })
-    y += 52
-    label({
-      x: COL_X,
-      y,
-      w: COL_W,
-      h: 36,
-      text_size: 24,
-      color: 0xbbbbbb,
-      text: getText('hr_timeline'),
-    })
-    y += 40
-    const minutes = minuteHr(record.hrSamples || [])
-    if (!minutes.length) {
-      label({ x: COL_X, y, w: COL_W, h: 32, text_size: 24, color: 0x888888, text: '—' })
-      y += 40
-    }
-    for (let i = 0; i < minutes.length && i < 16; i++) {
-      label({
-        x: COL_X,
-        y,
-        w: COL_W,
-        h: 32,
-        text_size: 24,
-        color: 0xdddddd,
-        text: `${minutes[i].minute} ${getText('min')} · ${minutes[i].avg}`,
-      })
-      y += 34
-    }
-    y += 12
-    label({
-      x: COL_X,
-      y,
-      w: COL_W,
-      h: 36,
-      text_size: 24,
-      color: 0xbbbbbb,
-      text: getText('phase_timeline'),
-    })
-    y += 40
-    const lines = stepLines(record.timeline || [])
-    if (!lines.length) {
-      label({ x: COL_X, y, w: COL_W, h: 32, text_size: 24, color: 0x888888, text: '—' })
-      y += 40
-    }
-    for (let i = 0; i < lines.length; i++) {
-      label({
-        x: COL_X,
-        y,
-        w: COL_W,
-        h: 32,
-        text_size: 22,
-        color: 0xdddddd,
-        text: lines[i],
-      })
-      y += 34
-    }
-    label({ x: COL_X, y: y + 8, w: COL_W, h: 80, text: ' ' })
   },
 })
