@@ -222,3 +222,16 @@ export function hideRing(ring) {
 export function onClick(node, handler) {
   node.addEventListener(event.CLICK_UP, handler)
 }
+
+export function card(options) {
+  const node = createWidget(widget.FILL_RECT, {
+    x: options.x,
+    y: options.y,
+    w: options.w,
+    h: options.h,
+    radius: options.radius == null ? 32 : options.radius,
+    color: options.color == null ? 0x1a1f27 : options.color,
+  })
+  if (options.click_func) onClick(node, options.click_func)
+  return node
+}
