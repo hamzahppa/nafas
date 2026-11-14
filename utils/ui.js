@@ -2,6 +2,32 @@ import { createWidget, widget, align, prop, event } from '@zos/ui'
 
 export const SCREEN = 466
 
+// Surfaces meet 3:1 against black. Text colors meet 4.5:1 on those surfaces.
+export const SURFACE = 0x4a6278
+export const TEXT_SOFT = 0xf3f6f8
+
+export const PRESET_SURFACE = {
+  coherence: 0x35685e,
+  relax: 0x3e5f86,
+  'relax-short': 0x3a628e,
+  tranquility: 0x64567a,
+}
+
+export const PRESET_ACCENT = {
+  coherence: 0xd7f5e8,
+  relax: 0xd6e6ff,
+  'relax-short': 0xd6e6ff,
+  tranquility: 0xf0e4ff,
+}
+
+export function presetSurface(id) {
+  return PRESET_SURFACE[id] || SURFACE
+}
+
+export function presetAccent(id) {
+  return PRESET_ACCENT[id] || 0xd6e6ff
+}
+
 export function fill(color, height) {
   return createWidget(widget.FILL_RECT, {
     x: 0,
@@ -221,4 +247,17 @@ export function hideRing(ring) {
 
 export function onClick(node, handler) {
   node.addEventListener(event.CLICK_UP, handler)
+}
+
+export function card(options) {
+  const node = createWidget(widget.FILL_RECT, {
+    x: options.x,
+    y: options.y,
+    w: options.w,
+    h: options.h,
+    radius: options.radius == null ? 32 : options.radius,
+    color: options.color == null ? 0x1a1f27 : options.color,
+  })
+  if (options.click_func) onClick(node, options.click_func)
+  return node
 }

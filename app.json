@@ -41,20 +41,8 @@
       },
       "platforms": [
         {
-          "name": "Cologne",
-          "deviceSource": 10944768
-        },
-        {
-          "name": "CologneWN",
-          "deviceSource": 10944769
-        },
-        {
           "name": "CologneW",
           "deviceSource": 10944771
-        },
-        {
-          "name": "CologneSW",
-          "deviceSource": 10948867
         }
       ],
       "designWidth": 466
