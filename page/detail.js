@@ -1,12 +1,12 @@
 import { getText } from '@zos/i18n'
 import { push } from '@zos/router'
-import { text_style } from '@zos/ui'
+import { align, text_style } from '@zos/ui'
 import { formatMinutes, readParam } from '../utils/format'
 import { nameKey, patternText, presetById } from '../utils/presets'
-import { button, card, fill, label, presetAccent, presetSurface, TEXT_SOFT } from '../utils/ui'
+import { button, CARD_FILL, card, fill, INK_SOFT, label, mark, presetAccent } from '../utils/ui'
 
-const COL_W = 320
-const COL_X = 73
+const COL_W = 314
+const COL_X = 84
 
 const PURPOSE = {
   coherence: 'purpose_coherence',
@@ -27,64 +27,72 @@ Page({
       label({ y: 200, text: getText('missing') })
       return
     }
-    const cardH = preset.steps ? 248 : 280
+    const accent = presetAccent(preset.id)
+    const cardY = preset.steps ? 64 : 48
+    const cardH = preset.steps ? 236 : 292
     card({
       x: 40,
-      y: 56,
+      y: cardY,
       w: 386,
       h: cardH,
-      color: presetSurface(preset.id),
+      radius: 28,
+      color: CARD_FILL,
     })
+    mark({ x: 58, y: cardY + 28, h: 52, color: accent })
     label({
       x: COL_X,
-      y: 72,
+      y: cardY + 16,
       w: COL_W,
-      h: 72,
+      h: 64,
       text_size: 32,
+      align_h: align.LEFT,
       text_style: text_style.WRAP,
       text: getText(nameKey(preset.id)),
     })
     label({
       x: COL_X,
-      y: 148,
+      y: cardY + 84,
       w: COL_W,
-      h: 56,
+      h: 64,
       text_size: 22,
-      color: TEXT_SOFT,
+      align_h: align.LEFT,
+      color: INK_SOFT,
       text_style: text_style.WRAP,
       text: getText(PURPOSE[preset.id]),
     })
     label({
       x: COL_X,
-      y: 208,
+      y: cardY + 152,
       w: COL_W,
-      h: 36,
-      text_size: 28,
-      color: presetAccent(preset.id),
+      h: 32,
+      text_size: 26,
+      align_h: align.LEFT,
+      color: accent,
       text: `${formatMinutes(preset.durationSec)} ${getText('min')}`,
     })
     label({
       x: COL_X,
-      y: 248,
+      y: cardY + 188,
       w: COL_W,
-      h: 36,
-      text_size: 24,
-      color: TEXT_SOFT,
+      h: 32,
+      text_size: 22,
+      align_h: align.LEFT,
+      color: INK_SOFT,
       text: `${getText('pattern')} ${patternText(preset.target)}`,
     })
-    let buttonY = 320
+    let buttonY = cardY + cardH + 16
     if (!preset.steps) {
       label({
         x: COL_X,
-        y: 288,
+        y: cardY + 228,
         w: COL_W,
-        h: 40,
-        text_size: 22,
-        color: TEXT_SOFT,
+        h: 44,
+        text_size: 20,
+        align_h: align.LEFT,
+        color: INK_SOFT,
         text_style: text_style.WRAP,
         text: getText('eases_in'),
       })
-      buttonY = 348
     }
     button({
       x: 83,
