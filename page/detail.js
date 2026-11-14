@@ -3,7 +3,7 @@ import { push } from '@zos/router'
 import { text_style } from '@zos/ui'
 import { formatMinutes, readParam } from '../utils/format'
 import { nameKey, patternText, presetById } from '../utils/presets'
-import { button, fill, label } from '../utils/ui'
+import { button, card, fill, label, presetAccent, presetSurface, TEXT_SOFT } from '../utils/ui'
 
 const COL_W = 320
 const COL_X = 73
@@ -27,55 +27,64 @@ Page({
       label({ y: 200, text: getText('missing') })
       return
     }
+    const cardH = preset.steps ? 248 : 280
+    card({
+      x: 40,
+      y: 56,
+      w: 386,
+      h: cardH,
+      color: presetSurface(preset.id),
+    })
     label({
       x: COL_X,
-      y: 96,
+      y: 72,
       w: COL_W,
-      h: 84,
+      h: 72,
       text_size: 32,
       text_style: text_style.WRAP,
       text: getText(nameKey(preset.id)),
     })
     label({
       x: COL_X,
-      y: 188,
+      y: 148,
       w: COL_W,
-      h: 64,
-      text_size: 26,
-      color: 0xbbbbbb,
+      h: 56,
+      text_size: 22,
+      color: TEXT_SOFT,
       text_style: text_style.WRAP,
       text: getText(PURPOSE[preset.id]),
     })
     label({
       x: COL_X,
-      y: 260,
+      y: 208,
       w: COL_W,
-      h: 40,
-      text_size: 32,
+      h: 36,
+      text_size: 28,
+      color: presetAccent(preset.id),
       text: `${formatMinutes(preset.durationSec)} ${getText('min')}`,
     })
     label({
       x: COL_X,
-      y: 308,
+      y: 248,
       w: COL_W,
-      h: 40,
-      text_size: 26,
-      color: 0xbbbbbb,
+      h: 36,
+      text_size: 24,
+      color: TEXT_SOFT,
       text: `${getText('pattern')} ${patternText(preset.target)}`,
     })
-    let buttonY = 368
+    let buttonY = 320
     if (!preset.steps) {
       label({
         x: COL_X,
-        y: 356,
+        y: 288,
         w: COL_W,
-        h: 56,
+        h: 40,
         text_size: 22,
-        color: 0x888888,
+        color: TEXT_SOFT,
         text_style: text_style.WRAP,
         text: getText('eases_in'),
       })
-      buttonY = 424
+      buttonY = 348
     }
     button({
       x: 83,

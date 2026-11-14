@@ -6,7 +6,7 @@ import { nameKey, PRESETS } from '../utils/presets'
 import { buildRecord } from '../utils/record'
 import { readStress } from '../utils/sensors'
 import { clearActive, loadActive, pushHistory } from '../utils/store'
-import { button, card, fill, label, onClick } from '../utils/ui'
+import { button, card, fill, label, onClick, presetAccent, presetSurface, TEXT_SOFT } from '../utils/ui'
 
 const COL_W = 340
 const COL_X = 63
@@ -22,13 +22,6 @@ const PURPOSE = {
   relax: 'purpose_relax',
   'relax-short': 'purpose_relax_short',
   tranquility: 'purpose_tranquility',
-}
-
-const CARD_STYLE = {
-  coherence: { color: 0x1a3d2e, accent: 0x7dcea0 },
-  relax: { color: 0x1a3358, accent: 0x8eb6ff },
-  'relax-short': { color: 0x243e66, accent: 0xa8c8ff },
-  tranquility: { color: 0x3a2a52, accent: 0xd4b4f0 },
 }
 
 Page({
@@ -81,14 +74,13 @@ Page({
   },
 
   presetCard(preset, y) {
-    const style = CARD_STYLE[preset.id] || { color: 0x1a1f27, accent: 0xbbbbbb }
     const open = () => push({ url: 'page/detail', params: `preset=${preset.id}` })
     card({
       x: CARD_X,
       y,
       w: CARD_W,
       h: CARD_H,
-      color: style.color,
+      color: presetSurface(preset.id),
       click_func: open,
     })
     const title = label({
@@ -105,7 +97,7 @@ Page({
       w: INNER_W,
       h: 72,
       text_size: 22,
-      color: 0xd0d0d0,
+      color: TEXT_SOFT,
       text_style: text_style.WRAP,
       text: getText(PURPOSE[preset.id]),
     })
@@ -115,7 +107,7 @@ Page({
       w: INNER_W,
       h: 32,
       text_size: 24,
-      color: style.accent,
+      color: presetAccent(preset.id),
       text: `${formatMinutes(preset.durationSec)} ${getText('min')}`,
     })
     onClick(title, open)
