@@ -28,6 +28,21 @@ export function presetAccent(id) {
   return PRESET_ACCENT[id] || 0xd6e6ff
 }
 
+// Neutral card clears 3:1 on black. Soft ink and accents clear 4.5:1 on the card.
+export const CARD_FILL = 0x555d65
+export const INK_SOFT = 0xd5dee4
+
+export function mark(options) {
+  return createWidget(widget.FILL_RECT, {
+    x: options.x,
+    y: options.y,
+    w: options.w == null ? 8 : options.w,
+    h: options.h,
+    radius: options.radius == null ? 4 : options.radius,
+    color: options.color,
+  })
+}
+
 export function fill(color, height) {
   return createWidget(widget.FILL_RECT, {
     x: 0,

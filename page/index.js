@@ -1,21 +1,21 @@
 import { getText } from '@zos/i18n'
 import { push, replace } from '@zos/router'
-import { text_style } from '@zos/ui'
+import { align, text_style } from '@zos/ui'
 import { formatMinutes } from '../utils/format'
 import { nameKey, PRESETS } from '../utils/presets'
 import { buildRecord } from '../utils/record'
 import { readStress } from '../utils/sensors'
 import { clearActive, loadActive, pushHistory } from '../utils/store'
-import { button, card, fill, label, onClick, presetAccent, presetSurface, TEXT_SOFT } from '../utils/ui'
+import { button, CARD_FILL, card, fill, INK_SOFT, label, mark, onClick, presetAccent } from '../utils/ui'
 
 const COL_W = 340
 const COL_X = 63
 const CARD_X = 40
 const CARD_W = 386
-const CARD_H = 188
-const CARD_GAP = 16
-const INNER_X = 58
-const INNER_W = 350
+const CARD_H = 170
+const CARD_GAP = 14
+const INNER_X = 76
+const INNER_W = 326
 
 const PURPOSE = {
   coherence: 'purpose_coherence',
@@ -67,6 +67,7 @@ Page({
       y: y + 12,
       w: 300,
       h: 58,
+      color: CARD_FILL,
       text: getText('history'),
       click_func: () => push({ url: 'page/history' }),
     })
@@ -75,39 +76,45 @@ Page({
 
   presetCard(preset, y) {
     const open = () => push({ url: 'page/detail', params: `preset=${preset.id}` })
+    const accent = presetAccent(preset.id)
     card({
       x: CARD_X,
       y,
       w: CARD_W,
       h: CARD_H,
-      color: presetSurface(preset.id),
+      radius: 28,
+      color: CARD_FILL,
       click_func: open,
     })
+    mark({ x: 56, y: y + 28, h: 114, color: accent })
     const title = label({
       x: INNER_X,
       y: y + 16,
       w: INNER_W,
-      h: 44,
-      text_size: 32,
+      h: 40,
+      text_size: 30,
+      align_h: align.LEFT,
       text: getText(nameKey(preset.id)),
     })
     const purpose = label({
       x: INNER_X,
-      y: y + 64,
+      y: y + 58,
       w: INNER_W,
-      h: 72,
-      text_size: 22,
-      color: TEXT_SOFT,
+      h: 60,
+      text_size: 20,
+      align_h: align.LEFT,
+      color: INK_SOFT,
       text_style: text_style.WRAP,
       text: getText(PURPOSE[preset.id]),
     })
     const duration = label({
       x: INNER_X,
-      y: y + 140,
+      y: y + 124,
       w: INNER_W,
-      h: 32,
-      text_size: 24,
-      color: presetAccent(preset.id),
+      h: 28,
+      text_size: 22,
+      align_h: align.LEFT,
+      color: accent,
       text: `${formatMinutes(preset.durationSec)} ${getText('min')}`,
     })
     onClick(title, open)
