@@ -1,4 +1,6 @@
 const NATURAL = { inhale: 4, holdIn: 0, exhale: 4, holdOut: 0 }
+const COHERENCE_55 = { inhale: 5, holdIn: 0, exhale: 5, holdOut: 0 }
+const COHERENCE_66 = { inhale: 6, holdIn: 0, exhale: 6, holdOut: 0 }
 const BOX = { inhale: 4, holdIn: 4, exhale: 4, holdOut: 4 }
 const SLEEP_456 = { inhale: 4, holdIn: 5, exhale: 6, holdOut: 0 }
 const SLEEP_467 = { inhale: 4, holdIn: 6, exhale: 7, holdOut: 0 }
@@ -20,8 +22,14 @@ export const PRESETS = [
   {
     id: 'coherence',
     durationSec: 15 * 60,
-    target: { inhale: 6, holdIn: 0, exhale: 6, holdOut: 0 },
+    target: COHERENCE_66,
     measured: false,
+    // Progressive 6-6: ease in over the first 2 minutes, then hold target.
+    steps: [
+      { pattern: NATURAL, durationSec: 60 },
+      { pattern: COHERENCE_55, durationSec: 60 },
+      { pattern: COHERENCE_66, durationSec: 13 * 60 },
+    ],
   },
   {
     id: 'relax',
