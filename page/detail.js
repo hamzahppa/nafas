@@ -64,7 +64,8 @@ Page({
       text: `${getText('pattern')} ${patternText(preset.target)}`,
     })
     let buttonY = 368
-    if (!preset.steps) {
+    const easesIn = !preset.steps || preset.steps.length > 1
+    if (easesIn) {
       label({
         x: COL_X,
         y: 356,
