@@ -5,7 +5,7 @@ import { stressDelta } from '../utils/engine'
 import { formatClock, formatDelta, formatNumber, readParam } from '../utils/format'
 import { nameKey } from '../utils/presets'
 import { findSession } from '../utils/store'
-import { button, fill, label } from '../utils/ui'
+import { button, card, fill, label, presetSurface } from '../utils/ui'
 
 const COL_W = 320
 const COL_X = 73
@@ -33,7 +33,7 @@ function stressRow(change, y) {
     h: 36,
     text_size: 28,
     align_h: align.LEFT,
-    color: change > 0 ? 0xd64545 : 0x2eae6a,
+    color: change > 0 ? 0xffd0cc : 0xb6f0c8,
     text: arrow,
   })
 }
@@ -50,6 +50,13 @@ Page({
       label({ y: 200, text: getText('missing') })
       return
     }
+    card({
+      x: 40,
+      y: 48,
+      w: 386,
+      h: 284,
+      color: presetSurface(record.presetId),
+    })
     label({
       x: COL_X,
       y: 72,
@@ -87,9 +94,9 @@ Page({
     stressRow(stressDelta(record.stressStart, record.stressEnd), 292)
     button({
       x: 93,
-      y: 340,
+      y: 348,
       w: 280,
-      h: 52,
+      h: 58,
       text: getText('all_stats'),
       click_func: () =>
         push({
